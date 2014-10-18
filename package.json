@@ -1,6 +1,6 @@
 {
   "name": "avconv_id3",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Read and write media metadata using avconv",
   "main": "index.js",
   "directories": {
@@ -16,8 +16,9 @@
     "id3",
     "avconv"
   ],
-  "author": {
-    "name": "elribonazo"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elribonazo/avconv_id3.git"
   },
   "license": "Public Domain",
   "dependencies": {
@@ -30,5 +31,10 @@
   "devDependencies": {
     "tape": "~1.0.4"
   },
-  "readme": "ERROR: No README data found!"
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elribonazo/avconv_id3/issues"
+  },
+  "homepage": "https://github.com/elribonazo/avconv_id3"
 }
