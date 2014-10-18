@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Avconv id3 by elribonazo</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/elribonazo/avconv_id3">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/elribonazo/avconv_id3/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/elribonazo/avconv_id3/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Avconv id3</h1>
+          <p>Nodejs module to use with avconv for reading and writing ID3 Tags to MP3</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/elribonazo">elribonazo</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a name="avconv_id3" class="anchor" href="#avconv_id3"><span class="octicon octicon-link"></span></a>avconv_id3</h1>
+
+<p>Read and write media file meta data (e.g., MP3 ID3 tags) using avconv's metadata framework.</p>
+
+<h1>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h1>
+
+<div class="highlight highlight-js"><pre><span class="kd">var</span> <span class="nx">avconv</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"avconv_id3"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">"fs"</span><span class="p">);</span>
+
+<span class="c1">// Read song.mp3 metadata</span>
+<span class="nx">avconv</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="s2">"song.mp3"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">"Error reading metadata, err"</span><span class="p">);</span>
+    <span class="k">else</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Set the artist for song.mp3</span>
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">artist</span><span class="o">:</span> <span class="s2">"Me"</span><span class="p">,</span>
+<span class="p">};</span>
+<span class="nx">avconv</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">"song.mp3"</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">"Error writing metadata"</span><span class="p">);</span>
+    <span class="k">else</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Data written"</span><span class="p">);</span>
+<span class="p">});</span>
+
+</pre></div>
+
+<h2>
+<a name="artwork" class="anchor" href="#artwork"><span class="octicon octicon-link"></span></a>Artwork</h2>
+
+<p>You can optionally include an array of files to be added to the source
+file. This is a destructive action, it will overwrite any previous
+streams on the file. For audio data, this is typically just one image.
+For video, this is where you would write additional audio streams or
+subtitle tracks.</p>
+
+<div class="highlight highlight-js"><pre><span class="nx">avconv</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s2">"song.mp3"</span><span class="p">,</span> <span class="p">{},</span> <span class="p">[</span><span class="s2">"cover.jpg"</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s2">"Error writing cover art"</span><span class="p">);</span>
+    <span class="k">else</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"Cover art added"</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+
+<h2>
+<a name="metadata" class="anchor" href="#metadata"><span class="octicon octicon-link"></span></a>Metadata</h2>
+
+<p>Avconv meta data (for songs) might include</p>
+
+<ul>
+<li>
+<code>"artist"</code>: artist name</li>
+<li>
+<code>"album"</code>: album name</li>
+<li>
+<code>"title"</code>: song title</li>
+<li>
+<code>"track"</code>: place in the album (e.g. <code>"5/8"</code>)</li>
+<li>
+<code>"disc"</code>: for multidisc albums</li>
+<li>
+<code>"label"</code>: record label</li>
+<li>
+<code>"date"</code>: arbitrary, but usually year (e.g. <code>"2002"</code>)</li>
+</ul>
+
+<pre><code>npm install avconv
+</code></pre>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
